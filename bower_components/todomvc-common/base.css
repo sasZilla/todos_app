@@ -291,7 +291,8 @@ label[for='toggle-all'] {
 }
 
 #todo-list li .destroy,
-#todo-list li .edit-btn {
+#todo-list li .edit-btn,
+#todo-list li .resurrect {
 	display: none;
 	position: absolute;
 	top: 0;
@@ -310,8 +311,13 @@ label[for='toggle-all'] {
 	right: 40px;
 }
 
+#todo-list li .resurrect {
+	right: 60px;
+}
+
 #todo-list li .destroy:hover,
-#todo-list li .edit-btn:hover {
+#todo-list li .edit-btn:hover,
+#todo-list li .resurrect:hover {
 	text-shadow: 0 0 1px #000,
 				 0 0 10px rgba(199, 107, 107, 0.8);
 	-webkit-transform: scale(1.3);
@@ -326,8 +332,13 @@ label[for='toggle-all'] {
 	content: '✎';
 }
 
+#todo-list li .resurrect:after {
+	content: '☤';
+}
+
 #todo-list li:hover .destroy,
-#todo-list li:hover .edit-btn {
+#todo-list li:hover .edit-btn,
+#todo-list li:hover .resurrect{
 	display: block;
 }
 

@@ -30,6 +30,9 @@
 				<button class="priority-btn"></button>
 				<button class="edit-btn"></button>
 				<button class="destroy"></button>
+				<% if (deleted) { %>
+					<button class="resurrect"></button>
+				<% } %>
 			</div>
 			<input class="edit" value="<%- title %>">
 		</script>
@@ -47,6 +50,9 @@
 				</li>
 				<li>
 					<a href="#/priority">Priority</a>
+				</li>
+				<li>
+					<a href="#/deleted">Deleted</a>
 				</li>
 			</ul>
 			<% if (completed) { %>

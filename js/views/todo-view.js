@@ -22,6 +22,7 @@ var app = app || {};
 			'click .edit-btn': 'edit',
 			'click .priority-btn': 'togglePriority',
 			'click .destroy': 'clear',
+			'click .resurrect': 'resurrect',
 			'keypress .edit': 'updateOnEnter',
 			'keydown .edit': 'revertOnEscape',
 			'blur .edit': 'close'
@@ -63,19 +64,27 @@ var app = app || {};
 		},
 
 		isHidden: function () {
+			var isCompleted = this.model.get('completed'),
+				isPriority = this.model.get('priority'),
+				isDeleted = this.model.get('deleted');
+
 			if (app.TodoFilter === 'completed') {
-				return !this.model.get('completed');
+				return !isCompleted || isDeleted;
 			}
 
 			if (app.TodoFilter === 'active') {
-				return this.model.get('completed');
+				return isCompleted || isDeleted;
 			}
 
 			if (app.TodoFilter === 'priority') {
-				return !this.model.get('priority');
+				return !isPriority || isDeleted;
 			}
 
-			return false;
+			if (app.TodoFilter === 'deleted') {
+				return !isDeleted;
+			}
+
+			return isDeleted;
 		},
 
 		// Toggle the `"completed"` state of the model.
@@ -144,7 +153,15 @@ var app = app || {};
 
 		// Remove the item, destroy the model from *localStorage* and delete its view.
 		clear: function () {
-			this.model.destroy();
+			if (!this.model.get('deleted')) {
+				this.model.toggleDeleted();
+			} else {
+				this.model.destroy();
+			}
+		},
+
+		resurrect: function () {
+			this.model.toggleDeleted();
 		}
 	});
 })(jQuery);
